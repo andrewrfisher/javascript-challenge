@@ -34,38 +34,30 @@ var tbody = d3.select("tbody");
 var filterButton = d3.select("#filter-btn");
 var inputField = d3.select("#datetime");
 
+//creating button.on with variables and actions
+filterButton.on("click", () => {
 
-// //defining function regarding clicking the button in-line
+    //prevent page from refreshing
+    d3.event.preventDefault();
+    //set up variable for inputDate 
+    var inputDate =inputField.property("value").trim();
+    //filteredDate variable, set up as console.log to test
+    var filteredDate = tableData.filter((ufoSighting) =>
+        ufoSighting.datetime === inputDate);
+    console.log(filteredDate);
 
-// filterButton.on("click", function(){
-//     //test with console.log to make sure it's working
-//     console.log("A button was clicked");
-//     console.log(d3.event.target);
+    // //"let" allows you to declare variables that are limited to the scope of a block statement
+    // let response = {
+    //     filteredDate
+    // };
 
-//     //prevent page from refreshing
-//     d3.event.preventDefault();
-
-//     //set up if statement to pull data related to what user inputs
-//     //account for no input and input not within time period of data
-//     if (inputField.trim() === "") {
-//         var filteredData = tableData;
-//     }   
-//     else {
-//         //make filteredData variable that equals what user inputs and grab corresponding data
-//         var filteredData = tableData.filter(sighting =>
-//             ufoSighting.datetime === inputField.trim());  
-//     };
-
-//     //if input is not in the dataset, then display a message to inform user
-//     if (filteredData.length == 0) {
-//         //found code that helps collapse table and displays message
-//         d3.select("tbody")
-//         .append("tr")
-//         .append("td")
-//             .attr("colspan", 7)
-//             .html(<h3>No Records Found</h3>)
-//     };
-
-// });
+    //if statement to account for users input or lack there of
+    if (filteredDate.length !==0) {
+        tableDisplay(filteredDate);
+    }
+        else {
+            tbody.append("tr").append("td").text("No Results Found!"); 
+        }
+});
 
 
