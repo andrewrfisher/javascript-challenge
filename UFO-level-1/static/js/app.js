@@ -46,8 +46,11 @@ inputs.on("change",function() {
     //prevent page from refreshing
     d3.event.preventDefault();
 
+    //using "this" so it will register whichever input is being used
     var change = d3.select(this);
+    //find value of whatever is being changed by user
     var value = change.property("value");
+    //grabbing the id of whichever input is being changed by user
     var filter = change.attr("id");
     console.log(filter);
 
@@ -58,12 +61,6 @@ inputs.on("change",function() {
         delete filters[filter]
     }
 
-
-
-    // //set up variable for inputDate/City/State - using toLowerCase to account for user input
-    // var inputDate =inputField1.property("value").trim();
-    // var inputCity = inputField2.property("value").toLowerCase().trim();
-    // var inputState = inputField3.property("value").toLowerCase().trim();
     var filteredData = tableData;
 
     Object.entries(filters).forEach(([key,value]) => {
@@ -73,43 +70,7 @@ inputs.on("change",function() {
 
     });
 
-    // //filteredDate variable, set up as console.log to test
-    // var filteredData = data.filter((data) =>
-    //     data.datetime === inputDate);
-    // console.log(filteredDate);
-
-
-
-    // //filteredCity variable
-    // var filteredCity = data.filter(data => 
-    //     data.city === inputCity);
-    // console.log(filteredCity);
-    // //filteredState variable
-    // var filteredState = data.filter(data => 
-    //     data.state === inputState);
-    // console.log(filteredState);
-    // //now create full filteredData variable so the whole search can work together
-    // var filteredData = data.filter(data => 
-    //     data.datetime === inputDate && data.city === inputCity && data.state === inputState);
-	// console.log(filteredData);
-
-
-    // // //"let" allows you to declare variables that are limited to the scope of a block statement
-    // // let response = {
-    // //     filteredDate, filteredCity, filteredState
-    // // };
-
-    // // //if statement to account for users input or lack there of
-    // // if (filteredData.length !==0) {
-    // //     tableDisplay(filteredData);
-    // // }
-    // //     else if (response.filteredData.length === 0 && ((response.filteredCity.length !== 0 || response.filteredDate.length !== 0 || response.filteredState.length !== 0))){
-    // //     tableDisplay(filteredCity) || tableDisplay(filteredDate) || tableDisplay(filteredState);
     
-    // //     else {
-    // //         tbody.append("tr").append("td").text("No Results Found!"); 
-    // //     }
-
     //display data in data
     tableDisplay(filteredData);
 });
